@@ -42,7 +42,7 @@ app.delete('/clientes/:id', async (req, res) => {
         }
     });
 
-    res.send('deletado')
+    res.send('deleted')
 })
 
 
