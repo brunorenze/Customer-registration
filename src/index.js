@@ -1,13 +1,15 @@
 import express from 'express'
 import Cliente from "./models/cliente.js";
 import Produto from "./models/produto.js";
+import Address from "./models/address.js";
+import address from "./models/address.js";
 
 
 const app = express();
 app.use(express.json())
 const port = 3000
 
-
+//-----------------------------------------Clientes--------------------------------------------------------------------
 app.get('/clientes', async (req, res) => {
     res.send(await Cliente.findAll())
 })
@@ -44,7 +46,7 @@ app.delete('/clientes/:id', async (req, res) => {
 
     res.send('deleted')
 })
-
+//___________________________________________________PRODUTOS__________________________________________________________
 
 app.get('/produtos', async (req, res) => {
     res.send(await Produto.findAll())
@@ -88,6 +90,47 @@ app.delete('/produtos/:id', async (req, res) => {
     });
     res.send('Deletado')
 })
+
+//_____________________________________________ADDRESS___________________________________________________________________
+
+app.get('/addresses/', async  (req, res) => {
+    res.send (await Address.findAll())
+})
+
+app.get('/addresses/:id', async (req, res) => {
+    res.send(await Address.findByPk(req.params.id))
+})
+
+app.post('/addresses', (req, res)=>{
+    Address.create({street: req.body.street, house_number: req.body.house_number, zip_code: req.body.zip_code})
+    res.send('Ok')
+
+})
+
+app.put('/addresses/:id', async (req, res) => {
+
+
+    const resp = await Address.update({ street: req.body.street, house_number: req.body.house_number, zip_code: req.body.zip_code}, {
+        where: {
+            id: req.params.id
+        }
+    });
+    res.send(resp)
+
+})
+
+app.delete('/addresses/:id', async (req, res) => {
+
+    await Addresses.destroy({
+        where: {
+            id: req.params.id
+        }
+    });
+
+    res.send('deleted')
+})
+//--------------------------------------------------------------------------------------------------------------------
+
 
 app.listen(port, () => {
     console.log('Servidor funcionando...')
