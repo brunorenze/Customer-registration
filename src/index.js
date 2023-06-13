@@ -2,7 +2,6 @@ import express from 'express'
 import Cliente from "./models/cliente.js";
 import Produto from "./models/produto.js";
 import Address from "./models/address.js";
-import address from "./models/address.js";
 
 
 const app = express();
@@ -71,7 +70,6 @@ app.post('/produtos/:id', (req, res) => {
 
 
 app.put('/produtos/:id', async (req, res) => {
-    //const produtoEditar = alterarProduto (+req.params.id, req.body.descricao, req.params.preco)
    await Produto.update({descricao: req.body.descricao, preco: req.body.preco}, {
        where: {
            id: req.params.id
@@ -101,8 +99,8 @@ app.get('/addresses/:id', async (req, res) => {
     res.send(await Address.findByPk(req.params.id))
 })
 
-app.post('/addresses', (req, res)=>{
-    Address.create({street: req.body.street, house_number: req.body.house_number, zip_code: req.body.zip_code})
+app.post('/addresses', async (req, res)=>{
+   await Address.create({street: req.body.street, house_number: req.body.house_number, zip_code: req.body.zip_code, cliente_id: req.body.cliente_id})
     res.send('Ok')
 
 })
@@ -110,18 +108,18 @@ app.post('/addresses', (req, res)=>{
 app.put('/addresses/:id', async (req, res) => {
 
 
-    const resp = await Address.update({ street: req.body.street, house_number: req.body.house_number, zip_code: req.body.zip_code}, {
+    const respp = await Address.update({ street: req.body.street, house_number: req.body.house_number, zip_code: req.body.zip_code}, {
         where: {
             id: req.params.id
         }
     });
-    res.send(resp)
+    res.send(respp)
 
 })
 
 app.delete('/addresses/:id', async (req, res) => {
 
-    await Addresses.destroy({
+    await Address.destroy({
         where: {
             id: req.params.id
         }

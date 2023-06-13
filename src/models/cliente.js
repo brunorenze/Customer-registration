@@ -8,30 +8,32 @@ class Cliente extends Model {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+        Cliente.hasMany(models.Address, {as: 'addresses'})
         // define association here
     }
 }
 
 Cliente.init({
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    dataNascimento: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
-}, {
-    sequelize: db,
-    modelName: 'Cliente',
-    tableName: 'cliente'
-});
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        nome: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        dataNascimento: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE
+    }, {
+        sequelize: db,
+        modelName: 'Cliente',
+        tableName: 'cliente'
+    }
+);
 
 export default Cliente

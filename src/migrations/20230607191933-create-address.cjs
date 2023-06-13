@@ -9,6 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      cliente_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: 'cliente', key: 'id'},
+        onUpdade: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
       street: {
         allowNull: false,
         type: Sequelize.STRING
