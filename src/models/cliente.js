@@ -8,7 +8,7 @@ class Cliente extends Model {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-        Cliente.hasMany(models.Address, {as: 'addresses'})
+        this.hasMany(models.Address, {as: 'addresses'})
         // define association here
     }
 }

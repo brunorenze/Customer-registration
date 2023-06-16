@@ -8,7 +8,7 @@ class Address extends Model {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-        Address.belongsTo(models.Cliente, {foreignKey: 'cliente_id', as: 'cliente'})
+        this.belongsTo(models.Cliente, {foreignKey: 'cliente_id', as: 'cliente'})
 
         // define association here
     }
